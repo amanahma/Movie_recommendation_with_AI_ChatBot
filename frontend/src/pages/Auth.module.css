@@ -1,0 +1,105 @@
+/* Netflix-style auth pages (Login + Register share this module). */
+
+.page {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  /* Dark "hero image" feel via layered gradients over Netflix black. */
+  background:
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.85)),
+    radial-gradient(120% 120% at 50% 0%, #5a0a0f 0%, #141414 55%);
+}
+
+/* MovieRec logo, top-left in Netflix red. */
+.logo {
+  position: absolute;
+  top: 20px;
+  left: var(--side-pad);
+  color: var(--accent);
+  font-weight: 800;
+  font-size: 1.8rem;
+}
+
+/* Centered black card at 75% opacity. */
+.card {
+  width: 100%;
+  max-width: 420px;
+  background: rgba(0, 0, 0, 0.75);
+  border-radius: 4px;
+  padding: 48px 56px;
+  display: flex;
+  flex-direction: column;
+}
+
+.heading {
+  font-size: 2rem;
+  color: #fff;
+  margin-bottom: 1.25rem;
+}
+
+.sub {
+  margin: 0 0 1.25rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+
+/* Dark #333 inputs with white text; red ring on focus. */
+.input {
+  background: #333;
+  border: none;
+  border-radius: 4px;
+  padding: 14px 16px;
+  color: #fff;
+  outline: none;
+}
+
+.input:focus {
+  box-shadow: 0 0 0 2px var(--accent) inset;
+}
+
+.submit {
+  margin-top: 0.5rem;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 14px;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.submit:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+
+.switch {
+  margin: 1.25rem 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.switch a {
+  color: #fff;
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 32px 24px;
+  }
+  .logo {
+    left: 20px;
+  }
+}

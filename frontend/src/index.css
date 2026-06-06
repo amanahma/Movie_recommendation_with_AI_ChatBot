@@ -1,0 +1,80 @@
+/* Global styles + Netflix design tokens. Repointing these CSS variables to
+   Netflix's palette shifts every component that uses them at once; each
+   component's own module then layers on the Netflix-specific styling. */
+
+:root {
+  /* Netflix exact palette */
+  --bg: #141414;          /* page background */
+  --surface: #2b2b2b;     /* cards */
+  --surface-2: #333333;   /* inputs */
+  --border: #404040;      /* subtle borders */
+  --text: #ffffff;        /* primary text */
+  --muted: #b3b3b3;       /* secondary text */
+  --accent: #e50914;      /* Netflix red */
+  --accent-hover: #f40612;/* hover red */
+  --danger: #e50914;
+  --success: #46d369;
+
+  --radius: 4px;
+  --side-pad: 60px;       /* Netflix uses side padding, not a centered container */
+  --nav-h: 68px;
+
+  /* Netflix font stack */
+  --netflix-font: "Netflix Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--netflix-font);
+  line-height: 1.5;
+}
+
+/* Hide scrollbars like Netflix (content still scrolls). */
+::-webkit-scrollbar {
+  display: none;
+}
+html {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* old Edge/IE */
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0 0 0.5rem;
+  line-height: 1.2;
+}

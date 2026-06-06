@@ -1,0 +1,81 @@
+.page {
+  width: 100%;
+}
+
+/* Full-bleed Netflix-red gradient banner (spans the whole page width). */
+.moodBanner {
+  width: 100%;
+  background: linear-gradient(90deg, #e50914, #b00710);
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 700;
+  padding: 18px var(--side-pad);
+}
+
+.moodBanner strong {
+  text-transform: capitalize;
+}
+
+/* Padded content area below the banner. */
+.content {
+  padding: 24px var(--side-pad) 60px;
+}
+
+.heading {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 8px 0 4px;
+}
+
+.sub {
+  margin: 0 0 24px;
+  color: var(--muted);
+}
+
+/* Exactly 4 cards per row. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.moodBadge {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.15rem 0.5rem;
+  border-radius: 3px;
+  margin-bottom: 0.35rem;
+}
+
+.empty {
+  text-align: center;
+  padding: 2.5rem 1rem;
+  background: var(--surface);
+  border-radius: var(--radius);
+}
+
+.emptyHint {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.link {
+  color: var(--accent);
+}
+
+@media (max-width: 700px) {
+  .content {
+    padding: 16px 20px 40px;
+  }
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .moodBanner {
+    padding: 14px 20px;
+    font-size: 1rem;
+  }
+}

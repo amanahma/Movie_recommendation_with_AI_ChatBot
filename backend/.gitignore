@@ -1,0 +1,37 @@
+# Environment / secrets
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+# Environment files - NEVER commit these
+backend/.env
+frontend/.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+venv/
+env/
+
+# Node
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# Database
+*.sqlite
+
+# OS
+.DS_Store
+Thumbs.db

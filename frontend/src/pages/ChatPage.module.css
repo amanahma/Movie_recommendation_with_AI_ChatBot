@@ -1,0 +1,121 @@
+/* Fills the viewport below the navbar; thread scrolls, composer pinned. */
+.page {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - var(--nav-h));
+  background: var(--bg);
+}
+
+.heading {
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: 700;
+  padding: 16px var(--side-pad) 8px;
+  margin: 0;
+}
+
+.thread {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px var(--side-pad);
+}
+
+.rowUser {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.rowAssistant {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.bubbleUser,
+.bubbleAssistant {
+  max-width: 70%;
+  padding: 10px 14px;
+  border-radius: 8px;
+  white-space: pre-wrap;
+  font-size: 0.95rem;
+}
+
+/* User messages in Netflix red, AI messages in dark gray. */
+.bubbleUser {
+  background: var(--accent);
+  color: #fff;
+  border-bottom-right-radius: 3px;
+}
+
+.bubbleAssistant {
+  background: #2b2b2b;
+  color: #fff;
+  border-bottom-left-radius: 3px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 0.6rem;
+  margin-top: 0.6rem;
+}
+
+.typing {
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* Full-width composer pinned to the bottom. */
+.composer {
+  display: flex;
+  gap: 10px;
+  padding: 12px var(--side-pad);
+  background: #141414;
+  border-top: 1px solid #2b2b2b;
+}
+
+.input {
+  flex: 1;
+  background: #2b2b2b;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: 12px 14px;
+  color: #fff;
+  outline: none;
+}
+
+.input::placeholder {
+  color: var(--muted);
+}
+
+.input:focus {
+  border-color: var(--accent);
+}
+
+.send {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0 22px;
+  font-weight: 700;
+}
+
+.send:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+
+@media (max-width: 700px) {
+  .heading,
+  .thread,
+  .composer {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .bubbleUser,
+  .bubbleAssistant {
+    max-width: 85%;
+  }
+}

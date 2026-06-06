@@ -1,0 +1,33 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.reason {
+  margin: 0;
+  font-size: 0.83rem;
+  color: var(--text);
+}
+
+.toggle {
+  align-self: flex-start;
+  background: transparent;
+  border: none;
+  color: var(--accent);
+  padding: 0;
+  font-size: 0.8rem;
+  text-decoration: underline;
+}
+
+.toggle:hover {
+  color: var(--accent-hover);
+}
+
+.detail {
+  font-size: 0.8rem;
+  color: var(--muted);
+  background: var(--surface-2);
+  border-radius: 8px;
+  padding: 0.5rem 0.6rem;
+}

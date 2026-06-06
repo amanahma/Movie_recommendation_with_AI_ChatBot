@@ -1,0 +1,83 @@
+/* Full-width page with Netflix side padding; text kept at a readable
+   measure rather than stretching across the whole viewport. */
+.wrap {
+  width: 100%;
+  padding: 32px var(--side-pad) 60px;
+}
+
+.wrap > * {
+  max-width: 820px;
+}
+
+@media (max-width: 700px) {
+  .wrap {
+    padding: 20px;
+  }
+}
+
+.back {
+  display: inline-block;
+  color: var(--muted);
+  font-size: 0.88rem;
+  margin-bottom: 1rem;
+}
+
+.back:hover {
+  color: var(--text);
+}
+
+.header {
+  margin-bottom: 1.5rem;
+}
+
+.title {
+  font-size: 2rem;
+}
+
+.meta {
+  margin: 0;
+  color: var(--muted);
+}
+
+.summary {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.summaryHeading {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.summaryText {
+  margin: 0;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.watchBtn {
+  align-self: flex-start;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 1.2rem;
+  font-weight: 600;
+}
+
+.watchBtn:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+
+.watchBtn:disabled {
+  background: var(--success);
+}

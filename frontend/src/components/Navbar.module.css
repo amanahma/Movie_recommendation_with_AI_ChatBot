@@ -1,0 +1,73 @@
+.bar {
+  background: #141414;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+}
+
+/* Full-width bar with Netflix side padding (no centered container). */
+.inner {
+  width: 100%;
+  margin: 0;
+  padding: 0 var(--side-pad);
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.brand {
+  color: var(--accent);
+  font-weight: 800;
+  font-size: 1.8rem;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+/* Links spread with equal spacing across the remaining width. */
+.links {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.link {
+  color: #fff;
+  font-size: 1rem;
+  padding: 0.4rem 0.6rem;
+  transition: color 0.15s;
+}
+
+.link:hover,
+.active {
+  color: var(--accent);
+}
+
+.logout {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  padding: 0.4rem 0.6rem;
+  transition: color 0.15s;
+}
+
+.logout:hover {
+  color: var(--accent);
+}
+
+@media (max-width: 700px) {
+  .inner {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 0.6rem 20px;
+    gap: 0.75rem;
+  }
+  .links {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+  }
+}

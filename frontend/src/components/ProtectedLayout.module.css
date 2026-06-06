@@ -1,0 +1,9 @@
+/* Full-bleed shell: no max-width, no centering, no padding. Each page
+   applies its own Netflix side padding so banners can go edge-to-edge. */
+.main {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  min-height: calc(100vh - var(--nav-h));
+  background: var(--bg);
+}

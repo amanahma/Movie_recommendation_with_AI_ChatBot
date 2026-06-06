@@ -1,0 +1,15 @@
+Alembic migrations for the Movie Recommendation API.
+
+Common commands (run from the backend/ directory):
+
+  # Apply all migrations up to the latest:
+  alembic upgrade head
+
+  # Roll back the most recent migration:
+  alembic downgrade -1
+
+  # Auto-generate a new migration after changing models:
+  alembic revision --autogenerate -m "describe your change"
+
+The database URL is read from your .env file via config.py -- you do not
+set it in alembic.ini.

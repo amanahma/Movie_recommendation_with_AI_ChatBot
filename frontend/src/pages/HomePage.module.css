@@ -1,0 +1,104 @@
+/* Full-width page with Netflix side padding. */
+.page {
+  width: 100%;
+  padding: 24px var(--side-pad) 60px;
+}
+
+.heading {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 8px 0 20px;
+}
+
+.controls {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+/* Type tabs (All / Movies / Series). */
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.tab {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -1px;
+  transition: color 0.15s;
+}
+
+.tab:hover {
+  color: #fff;
+}
+
+/* Netflix-red underline on the active tab. */
+.tabActive {
+  color: #fff;
+  border-bottom-color: var(--accent);
+}
+
+/* Dark, borderless inputs; red border only on focus. */
+.search {
+  flex: 1 1 280px;
+  background: #2b2b2b;
+  color: #fff;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: 12px 14px;
+  outline: none;
+}
+
+.search::placeholder {
+  color: var(--muted);
+}
+
+.search:focus {
+  border-color: var(--accent);
+}
+
+.select {
+  background: #2b2b2b;
+  color: #fff;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: 12px 14px;
+  outline: none;
+}
+
+.select:focus {
+  border-color: var(--accent);
+}
+
+/* Exactly 4 cards per row. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.empty {
+  color: var(--muted);
+  text-align: center;
+  padding: 2rem 0;
+}
+
+/* Drop to 2 columns on small screens so cards stay usable. */
+@media (max-width: 700px) {
+  .page {
+    padding: 16px 20px 40px;
+  }
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
