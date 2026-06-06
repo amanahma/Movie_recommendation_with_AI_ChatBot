@@ -59,10 +59,14 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-# Allow the React dev server (Vite default port 5173) during development.
+# CORS: allow the local Vite dev server (exact origin) and any Vercel
+# deployment. Note: CORSMiddleware matches allow_origins by EXACT string, so
+# a wildcard like "https://*.vercel.app" would never match -- subdomain
+# wildcards must go through allow_origin_regex instead.
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173"],
+    allow_origin_regex=r"https://.*\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
