@@ -1,3 +1,5 @@
+# Python 3.11+ required
+
 # --- Web framework ---
 fastapi==0.115.6
 uvicorn[standard]==0.34.0
@@ -8,8 +10,10 @@ alembic==1.14.0
 psycopg2-binary==2.9.10
 
 # --- Config / validation ---
-pydantic==2.10.4
-pydantic-settings==2.7.1
+# These versions ship pre-built wheels for Python 3.11-3.14 (no Rust build).
+pydantic==2.11.5
+pydantic-core==2.33.2
+pydantic-settings==2.9.1
 python-dotenv==1.0.1
 email-validator==2.2.0
 
