@@ -2,9 +2,10 @@
 // Also owns JWT storage (localStorage) and a tiny decoder to read the
 // logged-in user's id out of the token.
 //
-// Backend runs on :8000; this frontend runs on Vite's :5173.
+// Backend base URL comes from the VITE_API_URL env var in production
+// (e.g. the Render deployment) and falls back to localhost for dev.
 
-const API_BASE = "http://localhost:8000";
+const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
 const TOKEN_KEY = "jwt_token";
 
 // --- Token storage -------------------------------------------------------
@@ -56,7 +57,7 @@ async function request(path, { method = "GET", body, auth = true } = {}) {
 
   let res;
   try {
-    res = await fetch(`${API_BASE}${path}`, {
+    res = await fetch(`${BASE_URL}${path}`, {
       method,
       headers,
       body: body ? JSON.stringify(body) : undefined,
