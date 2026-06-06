@@ -9,41 +9,70 @@ import styles from "./HomePage.module.css";
 // Home: the unified catalog (movies + series) as a poster grid, with type
 // tabs (All / Movies / Series), a genre dropdown, and a title search.
 //
-// Tab + genre live in the URL query string (?tab=series&genre=Comedy) via
-// useSearchParams, so the browser back/forward buttons restore the filtered
-// view natively. The search box stays ephemeral local state by design.
+// The active tab lives in the URL (?tab=series) so back/forward restore it.
+// The genre is PER-TAB and remembered independently per tab.
 //
-// Note: the URL tab value is 'movies' (plural) but the data's content_type
-// is 'movie' (singular), so each tab carries the `type` it maps to.
+// Note: URL tab value is 'movies' (plural) but the data's content_type is
+// 'movie' (singular), so each tab carries the `type` it maps to.
 const TABS = [
   { key: "all", label: "All", type: null },
   { key: "movies", label: "Movies", type: "movie" },
   { key: "series", label: "Series", type: "series" },
 ];
 
+// Per-tab genre memory at MODULE scope (NOT inside the component, and not a
+// ref). A ref is destroyed when Home unmounts on navigation to a detail page,
+// so the genre was lost on "← back". A module-level variable persists for the
+// whole browser session regardless of mount/unmount, so each tab's genre
+// survives navigating away and back. It still resets on a full page refresh,
+// which is acceptable.
+const tabGenreMemory = {
+  all: "",
+  movies: "",
+  series: "",
+};
+
 export default function HomePage() {
   const [all, setAll] = useState([]); // full catalog
-  const [query, setQuery] = useState(""); // search — ephemeral, not in URL
+  const [query, setQuery] = useState(""); // search — ephemeral, unchanged
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // --- URL-backed state ---
+  // --- active tab (URL-backed) ---
   const [searchParams, setSearchParams] = useSearchParams();
   const rawTab = searchParams.get("tab") || "all";
-  // Guard against bogus ?tab= values falling back to "all".
   const activeTab = TABS.some((t) => t.key === rawTab) ? rawTab : "all";
-  const activeGenre = searchParams.get("genre") || ""; // "" = All genres
 
-  // Update one query param while preserving the others. Empty value (or the
-  // "all" tab) removes the param so the URL stays clean.
-  function setParam(key, value) {
+  // The genre shown for the CURRENT tab (drives the dropdown + filtering).
+  // Initialized from the module-level memory, so a remount (navigating back)
+  // restores this tab's last genre. "" means "All genres".
+  const [genre, setGenre] = useState(() => tabGenreMemory[activeTab] || "");
+
+  // Restore this tab's remembered genre whenever the active tab changes —
+  // covers both browser back/forward between ?tab= entries AND the component
+  // remounting after returning from a detail page.
+  useEffect(() => {
+    setGenre(tabGenreMemory[activeTab] || "");
+  }, [activeTab]);
+
+  // Switch tabs: load the new tab's remembered genre synchronously (batched
+  // with the URL change, so there's no flash of the old genre), then update
+  // the URL. The previous tab's genre was already saved on every change.
+  function selectTab(key) {
+    setGenre(tabGenreMemory[key] || "");
     const next = new URLSearchParams(searchParams);
-    if (!value || (key === "tab" && value === "all")) {
-      next.delete(key);
-    } else {
-      next.set(key, value);
-    }
+    if (key === "all") next.delete("tab");
+    else next.set("tab", key);
     setSearchParams(next);
+  }
+
+  // Change genre for the current tab: update the displayed state AND remember
+  // it against the active tab (in module memory) so it survives tab switches
+  // and navigation away/back.
+  function handleGenreChange(value) {
+    const g = value === "All" ? "" : value;
+    setGenre(g);
+    tabGenreMemory[activeTab] = g;
   }
 
   async function load() {
@@ -68,17 +97,17 @@ export default function HomePage() {
     [all]
   );
 
-  // Apply tab + genre + title filters (all client-side).
+  // Apply tab + (tab-specific) genre + title filters, all client-side.
   const visible = useMemo(() => {
     const q = query.trim().toLowerCase();
     const type = (TABS.find((t) => t.key === activeTab) || {}).type;
     return all.filter((c) => {
       if (type && c.content_type !== type) return false;
-      if (activeGenre && c.genre !== activeGenre) return false;
+      if (genre && c.genre !== genre) return false;
       if (q && !c.title.toLowerCase().includes(q)) return false;
       return true;
     });
-  }, [all, activeTab, activeGenre, query]);
+  }, [all, activeTab, genre, query]);
 
   return (
     <div className={styles.page}>
@@ -93,10 +122,8 @@ export default function HomePage() {
         />
         <select
           className={styles.select}
-          value={activeGenre || "All"}
-          onChange={(e) =>
-            setParam("genre", e.target.value === "All" ? "" : e.target.value)
-          }
+          value={genre || "All"}
+          onChange={(e) => handleGenreChange(e.target.value)}
         >
           <option value="All">All genres</option>
           {genres.map((g) => (
@@ -115,7 +142,7 @@ export default function HomePage() {
             className={
               activeTab === t.key ? `${styles.tab} ${styles.tabActive}` : styles.tab
             }
-            onClick={() => setParam("tab", t.key)}
+            onClick={() => selectTab(t.key)}
           >
             {t.label}
           </button>
